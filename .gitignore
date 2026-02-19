@@ -1,0 +1,7 @@
+node_modules/
+backend/node_modules/
+backend/events.db
+backend/events.db-shm
+backend/events.db-wal
+.env
+.DS_Store

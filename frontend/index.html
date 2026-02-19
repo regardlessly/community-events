@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Events &mdash; Singapore</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<!-- ── Navbar ──────────────────────────────────────────────────────────────── -->
+<header class="navbar">
+  <div class="navbar__inner">
+    <div class="navbar__brand">
+      <span class="navbar__icon">&#128197;</span>
+      <span class="navbar__title">Community Events</span>
+      <span class="navbar__subtitle">Singapore Senior Activities</span>
+    </div>
+    <div class="navbar__filters">
+      <label class="filter-label" for="region-filter">Region</label>
+      <select id="region-filter" class="filter-select" aria-label="Filter by region">
+        <option value="">All Regions</option>
+      </select>
+
+      <label class="filter-label" for="source-filter">Source</label>
+      <select id="source-filter" class="filter-select" aria-label="Filter by source">
+        <option value="">All Sources</option>
+      </select>
+
+      <label class="filter-label" for="category-filter">Category</label>
+      <select id="category-filter" class="filter-select" aria-label="Filter by category">
+        <option value="">All Categories</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<!-- ── Status ──────────────────────────────────────────────────────────────── -->
+<div id="error-msg" class="error-banner" style="display:none" role="alert"></div>
+<div id="loader" class="loader" style="display:none" aria-live="polite">
+  <div class="spinner" aria-hidden="true"></div>
+  <span>Loading events&hellip;</span>
+</div>
+
+<!-- ── Main ────────────────────────────────────────────────────────────────── -->
+<main class="app-layout">
+
+  <!-- Calendar -->
+  <section class="calendar-section" aria-label="Events calendar">
+    <div class="calendar-nav">
+      <button class="cal-nav-btn" onclick="CalendarEvents.prevMonth()" aria-label="Previous month">&#8592;</button>
+      <h2 id="calendar-title" class="calendar-title"></h2>
+      <button class="cal-nav-btn" onclick="CalendarEvents.nextMonth()" aria-label="Next month">&#8594;</button>
+    </div>
+
+    <div id="calendar-grid" class="calendar-grid" role="grid" aria-label="Monthly calendar"></div>
+
+    <div class="calendar-legend" aria-label="Colour legend">
+      <span class="legend-item"><span class="event-dot source-pa" aria-hidden="true"></span> People&#39;s Association</span>
+      <span class="legend-item"><span class="event-dot source-aic" aria-hidden="true"></span> AIC</span>
+      <span class="legend-item"><span class="event-dot source-cc" aria-hidden="true"></span> Community Centre</span>
+      <span class="legend-item"><span class="event-dot source-sgo" aria-hidden="true"></span> Silver Generation Office</span>
+    </div>
+  </section>
+
+  <!-- Day Panel -->
+  <aside class="day-panel-section" aria-label="Events for selected day">
+    <h3 id="day-panel-title" class="day-panel-title">Select a day to view events</h3>
+    <div id="day-panel"></div>
+  </aside>
+
+</main>
+
+<!-- ── Event Detail Modal ──────────────────────────────────────────────────── -->
+<div id="modal-overlay" class="modal-overlay" role="presentation"></div>
+
+<div id="event-modal" class="event-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <button id="modal-close" class="modal-close" aria-label="Close event details">&times;</button>
+
+  <div class="modal-body">
+    <div class="modal-header">
+      <span id="modal-source-badge" class="event-source-badge"></span>
+      <span id="modal-category" class="modal-category"></span>
+    </div>
+
+    <h2 id="modal-title" class="modal-title"></h2>
+
+    <dl class="modal-details">
+      <dt>Date</dt>      <dd id="modal-date"></dd>
+      <dt>Time</dt>      <dd id="modal-time"></dd>
+      <dt>Location</dt>  <dd id="modal-location"></dd>
+      <dt>Region</dt>    <dd id="modal-region"></dd>
+      <dt>Organiser</dt> <dd id="modal-organizer"></dd>
+    </dl>
+
+    <p id="modal-description" class="modal-description"></p>
+
+    <a id="modal-source-link" class="modal-source-link" style="display:none">
+      View on organiser website &#8599;
+    </a>
+  </div>
+</div>
+
+<!-- Scripts: api.js must load first (defines API), then calendar.js, then app.js -->
+<script src="js/api.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
