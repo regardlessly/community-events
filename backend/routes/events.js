@@ -91,16 +91,16 @@ router.get('/:id', async (req, res) => {
 // POST /api/events
 router.post('/', async (req, res) => {
   const { title, date, region, source, description, time, end_time,
-          location, source_url, category, organizer } = req.body;
+          location, source_url, category, organizer, image_url } = req.body;
   if (!title || !date || !region || !source) {
     return res.status(400).json({ ok: false, error: 'title, date, region, source are required' });
   }
   try {
     const { lastInsertRowid } = await db.run(
       `INSERT INTO events
-         (title,description,date,time,end_time,location,region,source,source_url,category,organizer)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`,
-      [title, description, date, time, end_time, location, region, source, source_url, category, organizer]
+         (title,description,date,time,end_time,location,region,source,source_url,category,organizer,image_url)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`,
+      [title, description, date, time, end_time, location, region, source, source_url, category, organizer, image_url]
     );
     const event = await db.get('SELECT * FROM events WHERE id = $1', [lastInsertRowid]);
     res.status(201).json({ ok: true, event });
@@ -113,17 +113,17 @@ router.post('/', async (req, res) => {
 // PUT /api/events/:id
 router.put('/:id', async (req, res) => {
   const { title, date, region, source, description, time, end_time,
-          location, source_url, category, organizer } = req.body;
+          location, source_url, category, organizer, image_url } = req.body;
   try {
     const existing = await db.get('SELECT id FROM events WHERE id = $1', [req.params.id]);
     if (!existing) return res.status(404).json({ ok: false, error: 'Event not found' });
     await db.all(
       `UPDATE events SET
          title=$1,description=$2,date=$3,time=$4,end_time=$5,
-         location=$6,region=$7,source=$8,source_url=$9,category=$10,organizer=$11
-       WHERE id=$12`,
+         location=$6,region=$7,source=$8,source_url=$9,category=$10,organizer=$11,image_url=$12
+       WHERE id=$13`,
       [title, description, date, time, end_time, location, region,
-       source, source_url, category, organizer, req.params.id]
+       source, source_url, category, organizer, image_url, req.params.id]
     );
     const event = await db.get('SELECT * FROM events WHERE id = $1', [req.params.id]);
     res.json({ ok: true, event });

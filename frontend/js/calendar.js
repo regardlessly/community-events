@@ -1,5 +1,7 @@
 'use strict';
 
+const PLACEHOLDER_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23e8edf2'/%3E%3Crect x='330' y='120' width='140' height='130' rx='12' fill='%23c5cfd8'/%3E%3Crect x='350' y='100' width='30' height='20' rx='4' fill='%23c5cfd8'/%3E%3Crect x='420' y='100' width='30' height='20' rx='4' fill='%23c5cfd8'/%3E%3Crect x='340' y='165' width='120' height='10' rx='3' fill='%23f0f4f8'/%3E%3Crect x='340' y='183' width='120' height='10' rx='3' fill='%23f0f4f8'/%3E%3Crect x='340' y='201' width='80' height='10' rx='3' fill='%23f0f4f8'/%3E%3C/svg%3E";
+
 const CalendarState = {
   year:        new Date().getFullYear(),
   month:       new Date().getMonth() + 1,  // 1-based
@@ -129,9 +131,12 @@ function renderEventCard(event) {
   const timeStr = event.time
     ? event.time + (event.end_time ? ' \u2013 ' + event.end_time : '')
     : 'Time TBC';
+  const thumbSrc = event.image_url || PLACEHOLDER_IMG;
+  const thumb = `<img class="event-card__thumb" src="${thumbSrc}" alt="" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}';this.onerror=null;" />`;
   return `
     <div class="event-card" data-id="${event.id}" tabindex="0" role="button"
          aria-label="${event.title}">
+      ${thumb}
       <div class="event-card__header">
         <span class="event-source-badge ${sourceClass(event.source)}">${event.source}</span>
         <span class="event-category">${event.category || ''}</span>

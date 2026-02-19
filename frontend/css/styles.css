@@ -338,6 +338,16 @@ body {
   outline-offset: 2px;
 }
 
+.event-card__thumb {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+  display: block;
+  margin: -0.9rem -1rem 0.75rem -1rem;
+  width: calc(100% + 2rem);
+}
+
 .event-card__header {
   display: flex;
   align-items: center;
@@ -392,6 +402,14 @@ body {
 }
 
 .modal-overlay.overlay--open { display: block; }
+
+.modal-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: var(--radius) var(--radius) 0 0;
+  display: block;
+}
 
 .event-modal {
   display: none;
@@ -505,10 +523,6 @@ body {
 @media (max-width: 900px) {
   .app-layout {
     grid-template-columns: 1fr;
-  }
-
-  .day-panel-section {
-    order: -1;
   }
 
   .cal-cell { min-height: 70px; }

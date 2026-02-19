@@ -126,6 +126,12 @@ function renderModal(event) {
   badge.textContent = event.source;
   badge.className   = 'event-source-badge ' + CalendarEvents.sourceClass(event.source);
 
+  const img = document.getElementById('modal-image');
+  img.src           = event.image_url || PLACEHOLDER_IMG;
+  img.alt           = event.title;
+  img.style.display = 'block';
+  img.onerror       = () => { img.src = PLACEHOLDER_IMG; img.onerror = null; };
+
   const link = document.getElementById('modal-source-link');
   if (event.source_url) {
     link.href          = event.source_url;
